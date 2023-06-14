@@ -6,8 +6,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace inProject.Models
-{ 
+namespace inProject.Models.Domain
+{
     public class PetexPrimaryLog
     {
         public PetexPrimaryLog(string logInfo)

@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using inProject;
-using inProject.Models;
+using inProject.Models.Domain;
 
 namespace inProject.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ResourcesController : ControllerBase
+    public class ResourcesController : Controller
     {
         private readonly AppDbContext _context;
 
@@ -21,104 +19,145 @@ namespace inProject.Controllers
             _context = context;
         }
 
-        // GET: api/Resources
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Resource>>> GetResources()
+        // GET: Resources
+        public async Task<IActionResult> Index()
         {
-          if (_context.Resources == null)
-          {
-              return NotFound();
-          }
-            return await _context.Resources.ToListAsync();
+              return _context.Resources != null ? 
+                          View(await _context.Resources.ToListAsync()) :
+                          Problem("Entity set 'AppDbContext.Resources'  is null.");
         }
 
-        // GET: api/Resources/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Resource>> GetResource(int id)
+        // GET: Resources/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-          if (_context.Resources == null)
-          {
-              return NotFound();
-          }
-            var resource = await _context.Resources.FindAsync(id);
+            if (id == null || _context.Resources == null)
+            {
+                return NotFound();
+            }
 
+            var resource = await _context.Resources
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (resource == null)
             {
                 return NotFound();
             }
 
-            return resource;
+            return View(resource);
         }
 
-        // PUT: api/Resources/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutResource(int id, Resource resource)
+        // GET: Resources/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Resources/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,ResourceName,ProjectResourceId,ResourceType,ResourceCategory,ResourceUsageState")] Resource resource)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(resource);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(resource);
+        }
+
+        // GET: Resources/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Resources == null)
+            {
+                return NotFound();
+            }
+
+            var resource = await _context.Resources.FindAsync(id);
+            if (resource == null)
+            {
+                return NotFound();
+            }
+            return View(resource);
+        }
+
+        // POST: Resources/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ResourceName,ProjectResourceId,ResourceType,ResourceCategory,ResourceUsageState")] Resource resource)
         {
             if (id != resource.Id)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(resource).State = EntityState.Modified;
-
-            try
+            if (ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ResourceExists(id))
+                try
                 {
-                    return NotFound();
+                    _context.Update(resource);
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!ResourceExists(resource.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
+                return RedirectToAction(nameof(Index));
             }
-
-            return NoContent();
+            return View(resource);
         }
 
-        // POST: api/Resources
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Resource>> PostResource(Resource resource)
+        // GET: Resources/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-          if (_context.Resources == null)
-          {
-              return Problem("Entity set 'AppDbContext.Resources'  is null.");
-          }
-            _context.Resources.Add(resource);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetResource", new { id = resource.Id }, resource);
-        }
-
-        // DELETE: api/Resources/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteResource(int id)
-        {
-            if (_context.Resources == null)
+            if (id == null || _context.Resources == null)
             {
                 return NotFound();
             }
-            var resource = await _context.Resources.FindAsync(id);
+
+            var resource = await _context.Resources
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (resource == null)
             {
                 return NotFound();
             }
 
-            _context.Resources.Remove(resource);
-            await _context.SaveChangesAsync();
+            return View(resource);
+        }
 
-            return NoContent();
+        // POST: Resources/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Resources == null)
+            {
+                return Problem("Entity set 'AppDbContext.Resources'  is null.");
+            }
+            var resource = await _context.Resources.FindAsync(id);
+            if (resource != null)
+            {
+                _context.Resources.Remove(resource);
+            }
+            
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool ResourceExists(int id)
         {
-            return (_context.Resources?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Resources?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

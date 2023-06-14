@@ -1,4 +1,4 @@
-﻿using inProject.Models.Enums;
+﻿using inProject.Models.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace inProject.Models
-{ 
+namespace inProject.Models.Domain
+{
     public class StructuredLog
     {
         [Key]

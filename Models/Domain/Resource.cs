@@ -5,14 +5,18 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
-using inProject.Models;
-using inProject.Models.Enums;
-using ResourceType = inProject.Models.Enums.ResourceType;
+using inProject.Models.Domain.Enums;
+using ResourceType = inProject.Models.Domain.Enums.ResourceType;
 
-namespace inProject.Models
+namespace inProject.Models.Domain
 {
     public class Resource
     {
+        public Resource()
+        {
+            Employees = new HashSet<Employee>();
+            SoftwareModules = new HashSet<SoftwareModule>();
+        }
         [Key]
         public int Id { get; set; }
         [Required, Display(Name = "Название ресурса")]
@@ -25,11 +29,11 @@ namespace inProject.Models
         public ResourceCategory ResourceCategory { get; set; }
         [Display(Name = "Состояние ресурса")]
         public ResourceUsageState ResourceUsageState { get; set; }
-        public virtual List<Employee>? Employees { get; set; }
-        public virtual List<SoftwareModule>? SoftwareModules { get; set; }
+        public virtual ICollection<Employee>? Employees { get; set; }
+        public virtual ICollection<SoftwareModule>? SoftwareModules { get; set; }
         public override string ToString()
         {
-            return this.ResourceName;
+            return ResourceName;
         }
     }
 }

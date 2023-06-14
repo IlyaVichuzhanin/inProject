@@ -1,4 +1,4 @@
-﻿using inProject.Models;
+﻿using inProject.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 

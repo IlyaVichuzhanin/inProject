@@ -5,26 +5,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace inProject.Models
+namespace inProject.Models.Domain
 {
     public class Software
     {
         public Software()
         {
-            SoftwareModules = new List<SoftwareModule>();
-            Sessions = new List<Session>();
-            StructuredLogs = new List<StructuredLog>();
+            SoftwareModules = new HashSet<SoftwareModule>();
+            Sessions = new HashSet<Session>();
+            StructuredLogs = new HashSet<StructuredLog>();
         }
         [Key]
         public int Id { get; set; }
         [Required, Display(Name = "Програмное обеспечение")]
         public string SoftwareName { get; set; }
-        public virtual List<SoftwareModule>? SoftwareModules { get; set; }
-        public virtual List<Session>? Sessions { get; set; }
-        public virtual List<StructuredLog>? StructuredLogs { get; set; }
+        public virtual ICollection<SoftwareModule>? SoftwareModules { get; set; }
+        public virtual ICollection<Session>? Sessions { get; set; }
+        public virtual ICollection<StructuredLog>? StructuredLogs { get; set; }
         public override string ToString()
         {
-            return this.SoftwareName;
+            return SoftwareName;
         }
     }
 }

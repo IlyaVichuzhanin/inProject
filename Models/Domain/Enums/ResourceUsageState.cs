@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace inProject.Models.Enums
+namespace inProject.Models.Domain.Enums
 {
-    public enum ResourceCategory
+    public enum ResourceUsageState
     {
-        Internal,
-        External
+        Used,
+        Unused
     }
 }

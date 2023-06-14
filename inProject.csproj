@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="bootstrap" Version="5.2.3" />
+    <PackageReference Include="jQuery.UI.Combined" Version="1.13.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -23,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Enums\" />
+    <Folder Include="Models\Domain\Enums\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

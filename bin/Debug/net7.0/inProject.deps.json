@@ -14,7 +14,9 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.5",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.6",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4",
+          "bootstrap": "5.2.3",
+          "jQuery.UI.Combined": "1.13.2"
         },
         "runtime": {
           "inProject.dll": {}
@@ -54,12 +56,19 @@
           }
         }
       },
+      "bootstrap/5.2.3": {},
       "Humanizer.Core/2.14.1": {
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
             "assemblyVersion": "2.14.0.0",
             "fileVersion": "2.14.1.48190"
           }
+        }
+      },
+      "jQuery/2.0.0": {},
+      "jQuery.UI.Combined/1.13.2": {
+        "dependencies": {
+          "jQuery": "2.0.0"
         }
       },
       "Microsoft.AspNetCore.Razor.Language/6.0.11": {
@@ -2323,12 +2332,33 @@
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
     },
+    "bootstrap/5.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tZZrH4HdqBr/oeUlGoc2KliYlwXeN3qyhKgc1B5dc585+lnMkcD4A5yIX2NmNoXCCagQQiQGKn7A97sWoo2AOw==",
+      "path": "bootstrap/5.2.3",
+      "hashPath": "bootstrap.5.2.3.nupkg.sha512"
+    },
     "Humanizer.Core/2.14.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "jQuery/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-u3YiE0QnFnBExPkBPqWr2EVd8nh01iQlMWPRfa7b1fQ53YuMtHw+Y9oaJukHtEHaMpyL0PJzq69y3/5AxWogGA==",
+      "path": "jquery/2.0.0",
+      "hashPath": "jquery.2.0.0.nupkg.sha512"
+    },
+    "jQuery.UI.Combined/1.13.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I6Fxd7HFMilY9/4S0fhVAoToE4FtB2uALft2PaKBplitOVXrth0MhqUlG+25VDNj4q/SrUdhudkZmVnaq8qWvA==",
+      "path": "jquery.ui.combined/1.13.2",
+      "hashPath": "jquery.ui.combined.1.13.2.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.11": {
       "type": "package",

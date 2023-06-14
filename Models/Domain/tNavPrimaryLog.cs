@@ -5,26 +5,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace inProject.Models
+namespace inProject.Models.Domain
 {
     public class tNavPrimaryLog
     {
         public tNavPrimaryLog(
-            long? tNavLogID, 
-            int? operationType, 
-            string feature, 
+            long? tNavLogID,
+            int? operationType,
+            string feature,
             DateTime operationDateTime,
             string computerUserName,
             string windowsUserName,
             int? returnedId)
         {
-            TNavLogID=tNavLogID;
-            OperationType=operationType;
-            Feature=feature;
-            OperationDateTime=operationDateTime;
-            ComputerUserName=computerUserName;
-            WindowsUserName=windowsUserName;
-            ReturnedId=returnedId;
+            TNavLogID = tNavLogID;
+            OperationType = operationType;
+            Feature = feature;
+            OperationDateTime = operationDateTime;
+            ComputerUserName = computerUserName;
+            WindowsUserName = windowsUserName;
+            ReturnedId = returnedId;
         }
         [Key]
         public long? Id { get; set; }
@@ -39,7 +39,7 @@ namespace inProject.Models
         public bool? LogIsStructurated { get; set; }
         public bool? ChechLog(Tuple<int, int, string, DateTime, string, string, int> logInfo)
         {
-            return (logInfo.Item2 != -1);
+            return logInfo.Item2 != -1;
         }
     }
 }

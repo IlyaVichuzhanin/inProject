@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MyProjects\\inProject\\inProject\\inProject.csproj": {}
+    "D:\\MyProjects\\inProject\\inProject.csproj": {}
   },
   "projects": {
-    "D:\\MyProjects\\inProject\\inProject\\inProject.csproj": {
+    "D:\\MyProjects\\inProject\\inProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MyProjects\\inProject\\inProject\\inProject.csproj",
+        "projectUniqueName": "D:\\MyProjects\\inProject\\inProject.csproj",
         "projectName": "inProject",
-        "projectPath": "D:\\MyProjects\\inProject\\inProject\\inProject.csproj",
+        "projectPath": "D:\\MyProjects\\inProject\\inProject.csproj",
         "packagesPath": "C:\\Users\\vychuzhanin.ia\\.nuget\\packages\\",
-        "outputPath": "D:\\MyProjects\\inProject\\inProject\\obj\\",
+        "outputPath": "D:\\MyProjects\\inProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,6 +44,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "AspNetCoreHero.ToastNotification": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[7.0.7, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.5, )"
@@ -75,6 +83,14 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[7.0.4, )"
+            },
+            "bootstrap": {
+              "target": "Package",
+              "version": "[5.2.3, )"
+            },
+            "jQuery.UI.Combined": {
+              "target": "Package",
+              "version": "[1.13.2, )"
             }
           },
           "imports": [

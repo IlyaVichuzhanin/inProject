@@ -5,17 +5,17 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using inProject.Models.Enums;
+using inProject.Models.Domain.Enums;
 
-namespace inProject.Models
+namespace inProject.Models.Domain
 {
     public class Employee
     {
         public Employee()
         {
-            Sessions = new List<Session>();
-            SoftwareUsers = new List<SoftwareUser>();
-            StructuredLogs = new List<StructuredLog> ();
+            Sessions = new HashSet<Session>();
+            SoftwareUsers = new HashSet<SoftwareUser>();
+            StructuredLogs = new HashSet<StructuredLog>();
 
         }
         [Key]
@@ -31,9 +31,9 @@ namespace inProject.Models
         public int CompanyId { get; set; }
         [ForeignKey("CompanyId"), Display(Name = "Компания")]
         public virtual Company? Company { get; set; }
-        public virtual List<Session>? Sessions { get; set; }
-        public virtual List<SoftwareUser>? SoftwareUsers { get; set; }
-        public virtual List<StructuredLog>? StructuredLogs { get; set; }
+        public virtual ICollection<Session>? Sessions { get; set; }
+        public virtual ICollection<SoftwareUser>? SoftwareUsers { get; set; }
+        public virtual ICollection<StructuredLog>? StructuredLogs { get; set; }
         public override string ToString()
         {
             return FullName;

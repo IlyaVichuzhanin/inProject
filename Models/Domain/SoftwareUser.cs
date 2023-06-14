@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace inProject.Models
+namespace inProject.Models.Domain
 {
     public class SoftwareUser
     {
         public SoftwareUser()
         {
-            Sessions = new List<Session>();
-            StructuredLogs = new List<StructuredLog>();
+            Sessions = new HashSet<Session>();
+            StructuredLogs = new HashSet<StructuredLog>();
         }
         [Key]
         public int? Id { get; set; }
@@ -24,11 +24,11 @@ namespace inProject.Models
         public int? EmployeeId { get; set; }
         [ForeignKey("EmployeeId"), Display(Name = "Сотрудник")]
         public virtual Employee? Employee { get; set; }
-        public virtual List<Session>? Sessions { get; set; }
-        public virtual List<StructuredLog>? StructuredLogs { get; set; }
+        public virtual ICollection<Session>? Sessions { get; set; }
+        public virtual ICollection<StructuredLog>? StructuredLogs { get; set; }
         public override string ToString()
         {
-            return this.WindowsUserName;
+            return WindowsUserName;
         }
     }
 }
