@@ -18,7 +18,7 @@ namespace inProject.Models.Domain
         }
         [Key]
         public long Id { get; set; }
-        public string LogInfo { get; set; }
+        public string? LogInfo { get; set; }
         public bool IsLog { get; set; }
         public bool LogIsStructurated { get; set; }
         public bool ChechLog(string logInfo)

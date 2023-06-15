@@ -18,7 +18,7 @@ namespace inProject.Models.Domain
         [Key]
         public int Id { get; set; }
         [Required, Display(Name = "Програмное обеспечение")]
-        public string SoftwareName { get; set; }
+        public string? SoftwareName { get; set; }
         public virtual ICollection<SoftwareModule>? SoftwareModules { get; set; }
         public virtual ICollection<Session>? Sessions { get; set; }
         public virtual ICollection<StructuredLog>? StructuredLogs { get; set; }

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using inProject;
 using inProject.Models;
 using inProject.Models.ViewModels;
 using inProject.Models.Domain;
+using inProject.Data;
 
 namespace inProject.Controllers
 {

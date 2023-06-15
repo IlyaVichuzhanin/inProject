@@ -20,7 +20,7 @@ namespace inProject.Models.Domain
         [Key]
         public int Id { get; set; }
         [Required, Display(Name = "Название ресурса")]
-        public string ResourceName { get; set; }
+        public string? ResourceName { get; set; }
         [Display(Name = "Id ресурса в MS Project")]
         public int ProjectResourceId { get; set; }
         [Display(Name = "Тип ресурса")]

@@ -18,9 +18,9 @@ namespace inProject.Models.Domain
         [Key]
         public int? Id { get; set; }
         [Required, Display(Name = "Пользователь")]
-        public string WindowsUserName { get; set; }
+        public string? WindowsUserName { get; set; }
         [Display(Name = "Имя компьютера")]
-        public string ComputerUserName { get; set; }
+        public string? ComputerUserName { get; set; }
         public int? EmployeeId { get; set; }
         [ForeignKey("EmployeeId"), Display(Name = "Сотрудник")]
         public virtual Employee? Employee { get; set; }

@@ -18,7 +18,7 @@ namespace inProject.Models.Domain
         [Key]
         public int Id { get; set; }
         [Required, Display(Name = "Модуль")]
-        public string SoftwareModuleName { get; set; }
+        public string? SoftwareModuleName { get; set; }
         //Resource
         public int ResourceID { get; set; }
         [ForeignKey("ResourceID"), Display(Name = "Ресурс")]

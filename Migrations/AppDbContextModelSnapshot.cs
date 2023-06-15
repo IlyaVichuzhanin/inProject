@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using inProject;
+using inProject.Data;
 
 #nullable disable
 
@@ -17,12 +17,216 @@ namespace inProject.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("inProject.Models.Company", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("inProject.Models.Domain.Company", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,7 +243,7 @@ namespace inProject.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("inProject.Models.Employee", b =>
+            modelBuilder.Entity("inProject.Models.Domain.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +273,7 @@ namespace inProject.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("inProject.Models.PetexPrimaryLog", b =>
+            modelBuilder.Entity("inProject.Models.Domain.PetexPrimaryLog", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,7 +296,7 @@ namespace inProject.Migrations
                     b.ToTable("PetexPrimaryLogs");
                 });
 
-            modelBuilder.Entity("inProject.Models.Resource", b =>
+            modelBuilder.Entity("inProject.Models.Domain.Resource", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,7 +325,7 @@ namespace inProject.Migrations
                     b.ToTable("Resources");
                 });
 
-            modelBuilder.Entity("inProject.Models.Session", b =>
+            modelBuilder.Entity("inProject.Models.Domain.Session", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -163,7 +367,7 @@ namespace inProject.Migrations
                     b.ToTable("Sessions");
                 });
 
-            modelBuilder.Entity("inProject.Models.Software", b =>
+            modelBuilder.Entity("inProject.Models.Domain.Software", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,7 +384,7 @@ namespace inProject.Migrations
                     b.ToTable("Softwares");
                 });
 
-            modelBuilder.Entity("inProject.Models.SoftwareModule", b =>
+            modelBuilder.Entity("inProject.Models.Domain.SoftwareModule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -207,7 +411,7 @@ namespace inProject.Migrations
                     b.ToTable("SoftwareModules");
                 });
 
-            modelBuilder.Entity("inProject.Models.SoftwareUser", b =>
+            modelBuilder.Entity("inProject.Models.Domain.SoftwareUser", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -233,7 +437,7 @@ namespace inProject.Migrations
                     b.ToTable("SoftwareUsers");
                 });
 
-            modelBuilder.Entity("inProject.Models.StructuredLog", b =>
+            modelBuilder.Entity("inProject.Models.Domain.StructuredLog", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -278,7 +482,7 @@ namespace inProject.Migrations
                     b.ToTable("StructuredLogs");
                 });
 
-            modelBuilder.Entity("inProject.Models.tNavPrimaryLog", b =>
+            modelBuilder.Entity("inProject.Models.Domain.tNavPrimaryLog", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
@@ -321,15 +525,79 @@ namespace inProject.Migrations
                     b.ToTable("tNavPrimaryLogs");
                 });
 
-            modelBuilder.Entity("inProject.Models.Employee", b =>
+            modelBuilder.Entity("inProject.Models.Domain.ApplicationUser", b =>
                 {
-                    b.HasOne("inProject.Models.Company", "Company")
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FirtsName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("inProject.Models.Domain.Employee", b =>
+                {
+                    b.HasOne("inProject.Models.Domain.Company", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("inProject.Models.Resource", "Resource")
+                    b.HasOne("inProject.Models.Domain.Resource", "Resource")
                         .WithMany("Employees")
                         .HasForeignKey("ResourceID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -340,27 +608,27 @@ namespace inProject.Migrations
                     b.Navigation("Resource");
                 });
 
-            modelBuilder.Entity("inProject.Models.Session", b =>
+            modelBuilder.Entity("inProject.Models.Domain.Session", b =>
                 {
-                    b.HasOne("inProject.Models.Employee", "Employee")
+                    b.HasOne("inProject.Models.Domain.Employee", "Employee")
                         .WithMany("Sessions")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("inProject.Models.Software", "Software")
+                    b.HasOne("inProject.Models.Domain.Software", "Software")
                         .WithMany("Sessions")
                         .HasForeignKey("SoftwareId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("inProject.Models.SoftwareModule", "SoftwareModule")
+                    b.HasOne("inProject.Models.Domain.SoftwareModule", "SoftwareModule")
                         .WithMany("Sessions")
                         .HasForeignKey("SoftwareModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("inProject.Models.SoftwareUser", "SoftwareUser")
+                    b.HasOne("inProject.Models.Domain.SoftwareUser", "SoftwareUser")
                         .WithMany("Sessions")
                         .HasForeignKey("SoftwareUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -375,15 +643,15 @@ namespace inProject.Migrations
                     b.Navigation("SoftwareUser");
                 });
 
-            modelBuilder.Entity("inProject.Models.SoftwareModule", b =>
+            modelBuilder.Entity("inProject.Models.Domain.SoftwareModule", b =>
                 {
-                    b.HasOne("inProject.Models.Resource", "Resource")
+                    b.HasOne("inProject.Models.Domain.Resource", "Resource")
                         .WithMany("SoftwareModules")
                         .HasForeignKey("ResourceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("inProject.Models.Software", "Software")
+                    b.HasOne("inProject.Models.Domain.Software", "Software")
                         .WithMany("SoftwareModules")
                         .HasForeignKey("SoftwareId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -394,30 +662,30 @@ namespace inProject.Migrations
                     b.Navigation("Software");
                 });
 
-            modelBuilder.Entity("inProject.Models.SoftwareUser", b =>
+            modelBuilder.Entity("inProject.Models.Domain.SoftwareUser", b =>
                 {
-                    b.HasOne("inProject.Models.Employee", "Employee")
+                    b.HasOne("inProject.Models.Domain.Employee", "Employee")
                         .WithMany("SoftwareUsers")
                         .HasForeignKey("EmployeeId");
 
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("inProject.Models.StructuredLog", b =>
+            modelBuilder.Entity("inProject.Models.Domain.StructuredLog", b =>
                 {
-                    b.HasOne("inProject.Models.Employee", "Employee")
+                    b.HasOne("inProject.Models.Domain.Employee", "Employee")
                         .WithMany("StructuredLogs")
                         .HasForeignKey("EmployeeId");
 
-                    b.HasOne("inProject.Models.Software", "Software")
+                    b.HasOne("inProject.Models.Domain.Software", "Software")
                         .WithMany("StructuredLogs")
                         .HasForeignKey("SoftwareId");
 
-                    b.HasOne("inProject.Models.SoftwareModule", "SoftwareModule")
+                    b.HasOne("inProject.Models.Domain.SoftwareModule", "SoftwareModule")
                         .WithMany("StructuredLogs")
                         .HasForeignKey("SoftwareModuleId");
 
-                    b.HasOne("inProject.Models.SoftwareUser", "SoftwareUser")
+                    b.HasOne("inProject.Models.Domain.SoftwareUser", "SoftwareUser")
                         .WithMany("StructuredLogs")
                         .HasForeignKey("SoftwareUserId");
 
@@ -430,12 +698,12 @@ namespace inProject.Migrations
                     b.Navigation("SoftwareUser");
                 });
 
-            modelBuilder.Entity("inProject.Models.Company", b =>
+            modelBuilder.Entity("inProject.Models.Domain.Company", b =>
                 {
                     b.Navigation("Employees");
                 });
 
-            modelBuilder.Entity("inProject.Models.Employee", b =>
+            modelBuilder.Entity("inProject.Models.Domain.Employee", b =>
                 {
                     b.Navigation("Sessions");
 
@@ -444,14 +712,14 @@ namespace inProject.Migrations
                     b.Navigation("StructuredLogs");
                 });
 
-            modelBuilder.Entity("inProject.Models.Resource", b =>
+            modelBuilder.Entity("inProject.Models.Domain.Resource", b =>
                 {
                     b.Navigation("Employees");
 
                     b.Navigation("SoftwareModules");
                 });
 
-            modelBuilder.Entity("inProject.Models.Software", b =>
+            modelBuilder.Entity("inProject.Models.Domain.Software", b =>
                 {
                     b.Navigation("Sessions");
 
@@ -460,14 +728,14 @@ namespace inProject.Migrations
                     b.Navigation("StructuredLogs");
                 });
 
-            modelBuilder.Entity("inProject.Models.SoftwareModule", b =>
+            modelBuilder.Entity("inProject.Models.Domain.SoftwareModule", b =>
                 {
                     b.Navigation("Sessions");
 
                     b.Navigation("StructuredLogs");
                 });
 
-            modelBuilder.Entity("inProject.Models.SoftwareUser", b =>
+            modelBuilder.Entity("inProject.Models.Domain.SoftwareUser", b =>
                 {
                     b.Navigation("Sessions");
 
