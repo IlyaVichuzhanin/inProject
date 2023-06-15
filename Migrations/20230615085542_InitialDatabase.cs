@@ -73,7 +73,7 @@ namespace inProject.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    LogInfo = table.Column<string>(type: "text", nullable: false),
+                    LogInfo = table.Column<string>(type: "text", nullable: true),
                     IsLog = table.Column<bool>(type: "boolean", nullable: false),
                     LogIsStructurated = table.Column<bool>(type: "boolean", nullable: false)
                 },
@@ -300,8 +300,9 @@ namespace inProject.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserName = table.Column<string>(type: "text", nullable: false),
                     WindowsUserName = table.Column<string>(type: "text", nullable: false),
-                    ComputerUserName = table.Column<string>(type: "text", nullable: false),
+                    ComputerUserName = table.Column<string>(type: "text", nullable: true),
                     EmployeeId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>

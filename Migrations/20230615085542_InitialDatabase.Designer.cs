@@ -12,7 +12,7 @@ using inProject.Data;
 namespace inProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230614151911_InitialDatabase")]
+    [Migration("20230615085542_InitialDatabase")]
     partial class InitialDatabase
     {
         /// <inheritdoc />
@@ -288,7 +288,6 @@ namespace inProject.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("LogInfo")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("LogIsStructurated")
@@ -423,11 +422,14 @@ namespace inProject.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("Id"));
 
                     b.Property<string>("ComputerUserName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("WindowsUserName")
                         .IsRequired()

@@ -29,12 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Domain\Enums\" />
-    <Folder Include="Services\" />
-    <Folder Include="ViewModels\StructuredLogVM\" />
-    <Folder Include="ViewModels\SoftwareUserVM\" />
-    <Folder Include="ViewModels\SoftwareModuleVM\" />
-    <Folder Include="ViewModels\SoftwareVM\" />
-    <Folder Include="ViewModels\SessionVM\" />
   </ItemGroup>
 
 </Project>

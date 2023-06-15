@@ -28,14 +28,14 @@ namespace inProject.Models.Domain
         public int SoftwareModuleId { get; set; }
         [Required, ForeignKey("SoftwareModuleId"), Display(Name = "Модуль")]
         public virtual SoftwareModule? SoftwareModule { get; set; }
-        [Required, Display(Name = "Начало сессии")]
+        [Display(Name = "Начало сессии")]
         public DateTime LogInDateTime { get; set; }
-        [Required, Display(Name = "Окончание сессии")]
+        [Display(Name = "Окончание сессии")]
         public DateTime LogOutDateTime { get; set; }
-        [Required, Display(Name = "Время работы")]
+        [Display(Name = "Время работы")]
         public double SessionTime
         {
-            get { return (LogOutDateTime - LogInDateTime).TotalSeconds; }
+            get { return (LogOutDateTime - LogInDateTime).TotalHours; }
         }
         public bool SessionIsFinished { get; set; }
         //public bool SessionIsDevided { get; set; }

@@ -18,6 +18,8 @@ namespace inProject.Models.Domain
         [Key]
         public int? Id { get; set; }
         [Required, Display(Name = "Пользователь")]
+        public string? UserName { get; set; }
+        [Required, Display(Name = "Учетная запись Windows")]
         public string? WindowsUserName { get; set; }
         [Display(Name = "Имя компьютера")]
         public string? ComputerUserName { get; set; }

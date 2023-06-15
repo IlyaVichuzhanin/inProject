@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-var connectionString = builder.Configuration.GetConnectionString("MyConnection");
+//var connectionString = builder.Configuration.GetConnectionString("MyConnection");
 builder.Services.AddDbContext<AppDbContext>(
     o => o.UseNpgsql(builder.Configuration.GetConnectionString("MyConnection")));
 

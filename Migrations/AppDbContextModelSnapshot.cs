@@ -285,7 +285,6 @@ namespace inProject.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("LogInfo")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("LogIsStructurated")
@@ -420,11 +419,14 @@ namespace inProject.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("Id"));
 
                     b.Property<string>("ComputerUserName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("EmployeeId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("WindowsUserName")
                         .IsRequired()

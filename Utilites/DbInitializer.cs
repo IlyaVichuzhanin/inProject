@@ -27,7 +27,7 @@ namespace inProject.Utilites
                 {
                       UserName = "admin@gmail.com",
                       Email= "admin@gmail.com",
-                      FirtsName = "Super",
+                      FirstName = "Super",
                       LastName = "Admin"
                 },"1qazZAQ!").GetAwaiter();
 
