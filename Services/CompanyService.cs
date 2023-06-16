@@ -1,23 +1,44 @@
 ﻿using inProject.Dtos.CompanyDto;
+using inProject.Models.Domain;
+using inProject.Repositores.Interface;
+using inProject.Repositories.Interface;
 using inProject.Services.Interface;
 
 namespace inProject.Services
 {
     public class CompanyService : ICompanyService
     {
-        public Task CreateAsync(CreateCompanyDto createCompanyDto)
+        private readonly ICompanyRepository _companyRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        public CompanyService(ICompanyRepository companyRepository, IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _companyRepository = companyRepository;
+            _unitOfWork = unitOfWork;
+        }
+        public async Task CreateAsync(CreateCompanyDto createCompanyDto)
+        {
+            var company = new Company()
+            {
+                CompanyName= createCompanyDto.CompanyName
+            };
+            await _unitOfWork.CreateAsync(company);
+            await _unitOfWork.SaveAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var company = await _companyRepository.GetByAsync(x => x.Id == id);
+            await _unitOfWork.DeleteAsync(company);
+            await _unitOfWork.SaveAsync();
         }
 
-        public Task UpdateAsync(UpdateCompanyDto updateCompanyDto)
+        public async Task UpdateAsync(UpdateCompanyDto updateCompanyDto)
         {
-            throw new NotImplementedException();
+            var company = await _companyRepository.GetByAsync(x => x.Id == updateCompanyDto.Id);
+            company.CompanyName = updateCompanyDto.CompanyName;
+            
+            await _unitOfWork.UpdateAsync(company);
+            await _unitOfWork.SaveAsync();
         }
     }
 }

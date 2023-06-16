@@ -1,8 +1,15 @@
 using inProject.Data;
 using inProject.Models.Domain;
+using inProject.Repositories.Interface;
+using inProject.Repositories;
 using inProject.Utilites;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using inProject.Repositores.Interface;
+using inProject.Repositores;
+using inProject.Services.Interface;
+using inProject.Services;
+using AspNetCoreHero.ToastNotification;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +22,34 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddNotyf(options => {
+    options.DurationInSeconds = 10;
+    options.IsDismissable = true;
+    options.Position = NotyfPosition.BottomRight;
+});
+
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+//repositories
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IResourceRepository, ResourceRepository>();
+builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+builder.Services.AddScoped<ISoftwareRepository, SoftwareRepository>();
+builder.Services.AddScoped<ISoftwareModuleRepository, SoftwareModuleRepository>();
+builder.Services.AddScoped<ISoftwareUserRepository, SoftwareUserRepository>();
+
+//services
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IResourceService, ResourceService>();
+builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddScoped<ISoftwareService, SoftwareService>();
+builder.Services.AddScoped<ISoftwareModuleService, SoftwareModuleService>();
+builder.Services.AddScoped<ISoftwareUserService, SoftwareUserService>();
+
 
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 

@@ -2,6 +2,7 @@
 using inProject.Models.Domain;
 using inProject.Repositores.Interface;
 using inProject.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace inProject.Repositores
 {
@@ -11,24 +12,25 @@ namespace inProject.Repositores
         {
         }
 
-        public Task<List<Company>> GetAllCompanies()
+        public async Task<List<Company>> GetAllCompanies()
         {
-            throw new NotImplementedException();
+            return await _context.Companies!.ToListAsync();
         }
 
-        public Task<Company> GetCompanyById(int id)
+        public async Task<Company> GetCompanyById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Companies!.FirstOrDefaultAsync(x => x.Id == id) ?? throw new Exception("Company is not found");
         }
 
-        public Task<Company> GetCompanyByName(string name)
+        public async Task<Company> GetCompanyByName(string name)
         {
-            throw new NotImplementedException();
+            return await _context.Companies!.FirstOrDefaultAsync(x => x.CompanyName == name) ?? throw new Exception("Company is not found");
         }
 
-        public Task<int> GetCompanyCount()
+        public async Task<int> GetCompanyCount()
         {
-            throw new NotImplementedException();
+            var companies = await _context.Companies!.ToListAsync();
+            return companies.Count();
         }
     }
 }

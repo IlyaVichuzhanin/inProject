@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> _userManager
+
+@{
+    var loggedInUser = await _userManager.GetUserAsync(User);
+    //get the current controller and action
+    var currentController = ViewContext.RouteData.Values["controller"] as string;
+    var currentAction = ViewContext.RouteData.Values["action"] as string;
+
+    var image = loggedInUser?.ImageUrl == null ? "/defaultImage/avatar.png" : "/uploads/user/" + loggedInUser.ImageUrl;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -47,16 +59,26 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <div class="sb-sidenav-menu-heading">Settings</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Layouts
+                            Dictionaries
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                <a class='nav-link @(currentController=="Company"?"active":"")' asp-controller="Company"
+                                   asp-action="Index">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                                    Company
+                                </a>
+                                <a class="nav-link" href="layout-static.html">Employess</a>
+                                <a class="nav-link" href="layout-static.html">Resources</a>
+                                <a class="nav-link" href="layout-static.html">Software</a>
+                                <a class="nav-link" href="layout-static.html">SoftwareModules</a>
+                                <a class="nav-link" href="layout-static.html">SoftwareUsers</a>
+                                <a class="nav-link" href="layout-static.html">Sessions</a>
+                                @*<a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>*@
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
