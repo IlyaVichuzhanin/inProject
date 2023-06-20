@@ -45,7 +45,7 @@ namespace inProject.Controllers
         public async Task<IActionResult> Create()
         {
             var vm = new CreateCompanyVM();
-            return View(vm);
+            return PartialView("_AddCompanyPartialView", vm);
         }
 
         [HttpPost]
