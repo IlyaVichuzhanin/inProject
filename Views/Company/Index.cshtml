@@ -7,7 +7,8 @@
 
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCompany">
+<button type="button" class="btn btn-primary" data-toggle="modal" method="get" data-target="#addCompany"
+    data-url="@Url.Action("Create")">
     Add new Company
 </button>
 
@@ -28,8 +29,12 @@
             <table class="table align-middle mb-0 bg-dark" id="companyTable">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.Id)</th>
-                        <th>@Html.DisplayNameFor(model => model.CompanyName)</th>
+                        <th>
+                            @Html.DisplayNameFor(model=>model.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model=>model.CompanyName)
+                        </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -37,23 +42,24 @@
                     @foreach (var company in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => company.Id)</td>
-                            <td>@Html.DisplayFor(modelItem => company.CompanyName)</td>
+                            <td>@company.Id</td>
+                            <td>@company.CompanyName</td>
                             <td>
-                                @*<button type="button" class="btn btn-link btn-sm btn-rounded">
-                                    Edit
-                                </button>*@
-                                <a asp-action="Edit" asp-route-id="@company.Id" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form asp-action="Delete" asp-route-id="@company.Id" class="d-inline">
-                                    <button class="btn btn-sm btn-danger deleteBtn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete">
+                                <form asp-action="Edit" asp-route-id="@company.Id" class="d-inline" method="get">
+                                    <button class="btn btn-sm btn-danger deleteBtn" data-bs-toggle="tooltip" data-target="@("#EditCompany-"+company.Id)" data-bs-placement="bottom" title="Delete">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
-                                <a asp-action="Details" asp-route-id="@company.Id" class="btn btn-sm btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Details">
-                                    <i class="fas fa-address-card"></i>
+                                @*@await Html.PartialAsync("_EditCompanyPartialView", )*@
+@*                                <a asp-action="Edit" asp-route-id="@company.Id" class="btn btn-sm btn-primary" data-target="#EditCompany" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
+                                    <i class="fas fa-edit"></i>
                                 </a>
+                                @await Html.PartialAsync("_EditCompanyPartialView", company)*@
+@*                                <form asp-action="Delete" asp-route-id="@company.Id" class="d-inline">
+                                    <button class="btn btn-sm btn-danger deleteBtn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>*@
                             </td>
                         </tr>
                     }
@@ -64,5 +70,5 @@
 </div>
 
 
-@await Html.PartialAsync("_AddCompanyPartialView", new CompanyVM())
+@await Html.PartialAsync("_AddCompanyPartialView", new CreateCompanyVM())
 

@@ -42,6 +42,7 @@ namespace inProject.Controllers
             }).ToList();
             return View(vm);
         }
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             var vm = new CreateCompanyVM();
@@ -87,6 +88,7 @@ namespace inProject.Controllers
             }
         }
 
+        
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -98,7 +100,7 @@ namespace inProject.Controllers
                     Id=company.Id,
                     CompanyName=company.CompanyName
                 };
-                return View(vm);
+                return PartialView("_EditCompanyPartialView", vm);
             }
             catch (Exception ex)
             {
@@ -106,17 +108,17 @@ namespace inProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-
+        [HttpPost]
         public async Task<IActionResult> Edit(EditCompanyVM vm)
         {
-            if(!ModelState.IsValid) return View(vm);
-            var currentUser=await _userManager.GetUserAsync(User);
+            if (!ModelState.IsValid) return View(vm);
+            var currentUser = await _userManager.GetUserAsync(User);
             try
             {
                 var dto = new UpdateCompanyDto()
                 {
-                    Id= vm.Id,
-                    CompanyName=vm.CompanyName
+                    Id = vm.Id,
+                    CompanyName = vm.CompanyName
                 };
                 await _companyService.UpdateAsync(dto);
                 _notyfService.Success("Company updated successfuly");
